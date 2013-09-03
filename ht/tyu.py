@@ -29,12 +29,12 @@ FonctionObject01.append('lambda x:fct2(x)')
 
 #Construction of VRP Potential Solutions
 
-m = 30 # nombre des sous-variables
+m = 101 # nombre des sous-variables
 Num_Indv = 10 # number of Individuals
-Demand = range(m)
-Capacity = 100
+Demand = []
+Capacity = 50
 Result = [] # Delete this because its the result of lecture
-coordinate = [[3,2],[2,3],[4,2],[2,6],[1,3],[3,2],[2,3],[4,2],[2,6],[1,3],[3,2],[2,3],[4,2],[2,6],[1,3],[3,2],[2,3],[4,2],[2,6],[1,3],[3,2],[2,3],[4,2],[2,6],[1,3],[3,2],[2,3],[4,2],[2,6],[1,3]]
+coordinate = [] #[[3,2],[2,3],[4,2],[2,6],[1,3],[3,2],[2,3],[4,2],[2,6],[1,3],[3,2],[2,3],[4,2],[2,6],[1,3],[3,2],[2,3],[4,2],[2,6],[1,3],[3,2],[2,3],[4,2],[2,6],[1,3],[3,2],[2,3],[4,2],[2,6],[1,3]]
 
 class HvEDA:
     def __init__(self,nbits,fonction):
@@ -45,6 +45,19 @@ class HvEDA:
         self.fonctionObject = fonction
         self.X = []
         self.Tbit = nbits
+        self.ReadCapacitedVRP('60G2.DAT')  # we will change this after trying this instance
+    def ReadCapacitedVRP(self,filename):
+        hundel = open(filename,'r')
+        for line in hundel:
+            a =line.split()
+            p = []
+            p.append(eval(a[1]))
+            p.append(eval(a[2]))
+            coordinate.append(p)
+            Demand.append(eval(a[7]))
+        hundel.close()
+
+          
     def IsDominate( self,Lfonction, x, y , MinOrMax):
         fonction = eval(Lfonction)
         if MinOrMax == 1:
